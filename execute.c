@@ -1,9 +1,10 @@
 #include "main.h"
 /**
- *execute
- *@args
+ *execute - executes a command with arguments
+ *@command: The command to execute
+ *@args: An array of arguments for the command
  *
- *Return: 1
+ *Return: The exit status of the command
  */
 int execute(char *command, char **args)
 {
@@ -44,6 +45,6 @@ int execute(char *command, char **args)
 			}
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
-	free(path);
+
 	return WEXITSTATUS(status);
 }

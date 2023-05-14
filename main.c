@@ -23,14 +23,14 @@ int main(void)
 		getline(&buffer, &bufsize, stdin);
 
 		args = tokenize(buffer);
-		status = execute(args);
+		status = execute(args[0], args);
 
-		free(args);
+
 
 		if (status == -1)
 			break;
 	}
-
+	free(args);
 	free(buffer);
 	return (0);
 }

@@ -1,8 +1,9 @@
 #include "main.h"
 /**
+ *find_executable - Finds the full path of an executable
+ *@command: The name of the command
  *
- *
- *
+ *Return: The full path of the executable, or NULL if not found
  */
 char *find_executable(char *command)
 {
