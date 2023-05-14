@@ -1,58 +1,41 @@
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-
-#define BUFFER_SIZE 1024
-#define DELIMITER " \t\r\n\a"
-
-char **tokenize(char *line)
+#include "shell.h"
+/**
+ * tokenize - this function separate the string using a designed delimiter
+ * @data: a pointer to the program's data
+ * Return: an array of the different parts of the string
+ */
+void tokenize(data_of_program *data)
 {
-    char **tokens = NULL;
-    char *token = NULL;
-    int index = 0;
-    size_t size = 0;
+	char *delimiter = " \t";
+	int i, j, counter = 2, length;
 
-    if (line == NULL)
-        return NULL;
+	length = str_length(data->input_line);
+	if (length)
+	{
+		if (data->input_line[length - 1] == '\n')
+			data->input_line[length - 1] = '\0';
+	}
 
-    tokens = malloc(BUFFER_SIZE * sizeof(char *));
-    if (tokens == NULL)
-    {
-        perror("malloc");
-        exit(EXIT_FAILURE);
-    }
+	for (i = 0; data->input_line[i]; i++)
+	{
+		for (j = 0; delimiter[j]; j++)
+		{
+			if (data->input_line[i] == delimiter[j])
+				counter++;
+		}
+	}
 
-    token = strtok(line, DELIMITER);
-    while (token != NULL)
-    {
-        if (index >= BUFFER_SIZE)
-        {
-            fprintf(stderr, "tokenize: too many tokens\n");
-            free(tokens);
-            return NULL;
-        }
-
-        size = strlen(token) + 1;
-        tokens[index] = malloc(size * sizeof(char));
-        if (tokens[index] == NULL)
-        {
-            perror("malloc");
-            exit(EXIT_FAILURE);
-        }
-
-        strcpy(tokens[index], token);
-        index++;
-
-        token = strtok(NULL, DELIMITER);
-    }
-
-    tokens[index] = NULL;
-
-    if (index == 0)
-    {
-        free(tokens);
-        tokens = NULL;
-    }
-
-    return tokens;
+	data->tokens = malloc(counter * sizeof(char *));
+	if (data->tokens == NULL)
+	{
+		perror(data->program_name);
+		exit(errno);
+	}
+	i = 0;
+	data->tokens[i] = str_duplicate(_strtok(data->input_line, delimiter));
+	data->command_name = str_duplicate(data->tokens[0]);
+	while (data->tokens[i++])
+	{
+		data->tokens[i] = str_duplicate(_strtok(NULL, delimiter));
+	}
 }
