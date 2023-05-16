@@ -36,17 +36,10 @@ char *find_executable(char *command)
 
 			if (stat(result, &st) == 0)
 				break;
-
-			free(result);
-		}
-
-		if (!dir)
-		{
 			free(result);
 			result = NULL;
 		}
 	}
-
 	free(token);
 	return result;
 }

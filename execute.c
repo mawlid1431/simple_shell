@@ -12,13 +12,13 @@ int execute(char *command, char **args)
 	int status;
 	char *path;
 
+
 	path = find_executable(command);
 	if (!path)
 	{
 		fprintf(stderr, "%s: command not found\n", command);
 		return 127;
 	}
-
 	pid = fork();
 	if (pid == 0)
 	{
