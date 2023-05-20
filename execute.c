@@ -1,25 +1,25 @@
 #include "shell.h"
 /**
  * execute - execute a command with its entire path variables.
- * @command: the command to execute
- * @args: an array of arguments for the command
+ * @data: Pointer to the program's data structure
  * Return: If sucess returns zero, otherwise, return -1.
  */
-int execute(const char *command, char **args)
+int execute(data_of_program *data)
 {
 	int retval = 0, status;
 	pid_t pid, pidd;
+	char *path;
 
-	path = find_executable(command);
+	path = find_executable(data->command_name);
 	if (!path)
 	{
-		fprintf(stderr, "%s: command not found\n", command);
+		fprintf(stderr, "%s: command not found\n", data->command_name);
 		return -1;
 	}
 	pid = fork();
 	if (pid == 0)
 	{
-		if (execve(path, args, NULL) == -1)
+		if (execve(path, data->tokens, NULL) == -1)
 		{
 			perror("execute");
 			exit(EXIT_FAILURE);
@@ -41,12 +41,12 @@ int execute(const char *command, char **args)
 		}
 		if (pidd == 0)
 		{/* I am the child process, I execute the program*/
-			retval = execve(args[0], args, data->env);
+			retval = execve(data->tokens[0], data->tokens, data->env);
 			if (retval == -1) /* if error when execve*/
-				perror(command), exit(EXIT_FAILURE);
+				perror(data->command), exit(EXIT_FAILURE);
 		}
 		else
-		{/* I am the father, I wait and check the exit status of the child */
+		{/*I am the father,I wait and check the exit status of the child */
 			wait(&status);
 			if (WIFEXITED(status))
 				errno = WEXITSTATUS(status);
