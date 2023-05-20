@@ -21,7 +21,7 @@ int builtin_env(data_of_program *data)
 			if (data->tokens[1][i] == '=')
 			{/* checks if exists a var with the same name and change its value*/
 			/* temporally */
-				var_copy = str_duplicate(env_get_key(cpname, data));
+				var_copy = env_get_key(cpname, data);
 				if (var_copy != NULL)
 					env_set_key(cpname, data->tokens[1] + i + 1, data);
 
@@ -35,7 +35,6 @@ int builtin_env(data_of_program *data)
 				else
 				{/* returns the old value of the var*/
 					env_set_key(cpname, var_copy, data);
-					free(var_copy);
 				}
 				return (0);
 			}
@@ -49,7 +48,7 @@ int builtin_env(data_of_program *data)
 }
 
 /**
- * builtin_set_env - ..
+ * builtin_set_env - Sets an environment variable
  * @data: struct for the program's data
  * Return: zero if sucess, or other number if its declared in the arguments
  */
@@ -71,7 +70,7 @@ int builtin_set_env(data_of_program *data)
 }
 
 /**
- * builtin_unset_env - ..
+ * builtin_unset_env - Unsets and environmental variable
  * @data: struct for the program's data'
  * Return: ..
  */
