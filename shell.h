@@ -15,7 +15,9 @@
 
 /************* MACROS **************/
 
-#include "macros.h" /* for msg help and prompt */
+#define BUFFER_SIZE 1024
+#define PROMPT "$ "
+#define DELIMETER " \t\n\r\a"
 
 /************* STRUCTURES **************/
 
