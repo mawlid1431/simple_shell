@@ -14,7 +14,7 @@ int tokenize(const char *input_line, char **tokens)
 	if (length)
 	{
 		if (input_line[length - 1] == '\n')
-			nput_line[length - 1] = '\0';
+			input_line[length - 1] = '\0';
 	}
 
 	for (i = 0; input_line[i]; i++)
@@ -33,12 +33,12 @@ int tokenize(const char *input_line, char **tokens)
 		exit(errno);
 	}
 	i = 0;
-	tokens[i] = str_duplicate(_strtok(data->input_line, delimiter));
-	data->command_name = str_duplicate(data->tokens[0]);
+	tokens[i] = _strdup(_strtok(input_line, delimiter));
+	data->command_name = _strdup(tokens[0]);
 	while (tokens[i] != NULL)
 	{
 		i++;
-		tokens[i] = str_duplicate(_strtok(NULL, delimiter));
+		tokens[i] = _strdup(_strtok(NULL, delimiter));
 	}
 
 	return counter;
