@@ -11,7 +11,8 @@ int _getline(data_of_program *data)
 	char buff[BUFFER_SIZE] = {'\0'};
 	static char *array_commands[10] = {NULL};
 	static char array_operators[10] = {'\0'};
-	ssize_t bytes_read, i = 0;
+	ssize_t bytes_read;
+	int i = 0;
 
 	/* check if doesnot exist more commands in the array */
 	/* and checks the logical operators */
@@ -33,7 +34,7 @@ int _getline(data_of_program *data)
 		/* split lines for \n or ; */
 		i = 0;
 		do {
-			array_commands[i] = str_duplicate(_strtok(i ? NULL : buff, "\n;"));
+			array_commands[i] = _strdup(_strtok(i ? NULL : buff, "\n;"));
 			/*checks and split for && and || operators*/
 			i = check_logic_ops(array_commands, i, array_operators);
 		} while (array_commands[i++]);
@@ -72,8 +73,8 @@ int check_logic_ops(char *array_commands[], int i, char array_operators[])
 			/* split the line when chars && was found */
 			temp = array_commands[i];
 			array_commands[i][j] = '\0';
-			array_commands[i] = str_duplicate(array_commands[i]);
-			array_commands[i + 1] = str_duplicate(temp + j + 2);
+			array_commands[i] = _strdup(array_commands[i]);
+			array_commands[i + 1] = _strdup(temp + j + 2);
 			i++;
 			array_operators[i] = '&';
 			free(temp);
@@ -84,8 +85,8 @@ int check_logic_ops(char *array_commands[], int i, char array_operators[])
 			/* split the line when chars || was found */
 			temp = array_commands[i];
 			array_commands[i][j] = '\0';
-			array_commands[i] = str_duplicate(array_commands[i]);
-			array_commands[i + 1] = str_duplicate(temp + j + 2);
+			array_commands[i] = _strdup(array_commands[i]);
+			array_commands[i + 1] = _strdup(temp + j + 2);
 			i++;
 			array_operators[i] = '|';
 			free(temp);
