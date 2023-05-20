@@ -38,10 +38,10 @@ int print_alias(data_of_program *data, char *alias)
 }
 
 /**
- * get_alias - add, remove or show aliases
+ * get_alias - gets the value of an alias
  * @data: struct for the program's data
  * @name: name of the requested alias.
- * Return: zero if sucess, or other number if its declared in the arguments
+ * Return: The value of the alias if found, or NULL if not found
  */
 char *get_alias(data_of_program *data, char *name)
 {
@@ -104,9 +104,9 @@ int set_alias(char *alias_string, data_of_program *data)
 	{/* if the alias already exist */
 		buffer_add(buffer, "=");
 		buffer_add(buffer, temp);
-		data->alias_list[j] = str_duplicate(buffer);
+		data->alias_list[j] = _strdup(buffer);
 	}
 	else /* if the alias does not exist */
-		data->alias_list[j] = str_duplicate(alias_string);
+		data->alias_list[j] = _strdup(alias_string);
 	return (0);
 }
