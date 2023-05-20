@@ -119,7 +119,7 @@ int builtins_list(data_of_program *data);
 char **tokenize_path(data_of_program *data);
 
 /* Search for program in path */
-int find_program(data_of_program *data);
+int find_executable(data_of_program *data);
 
 
 /************** HELPERS FOR MEMORY MANAGEMENT **************/
