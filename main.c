@@ -6,9 +6,10 @@
  */
 int main(void)
 {
-	char *buffer, **args;
+	char *buffer;
 	size_t bufsize = BUFFER_SIZE;
 	int status;
+	data_of_program data;
 
 	buffer = (char *)malloc(bufsize * sizeof(char));
 	if (buffer == NULL)
@@ -17,20 +18,21 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 
+	inicialize_data(&data, 0, NULL, environ);
 	while (1)
 	{
 		printf(PROMPT);
-		getline(&buffer, &bufsize, stdin);
+		_getline(&data);
 
-		args = tokenize(buffer);
-		status = execute(args[0], args);
+		tokenize(&data);
+		status = execute(&data);
 
-
+		free_recurrent_data(&data)
 
 		if (status == -1)
 			break;
 	}
-	free(args);
+	free_all_data(&data);
 	free(buffer);
 	return (0);
 }
