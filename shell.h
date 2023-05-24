@@ -1,11 +1,15 @@
 #ifndef SHELL_H
 #define SHELL_H
 
-#include <stdio.h> /* for printf*/
-#include <unistd.h> /* for fork, execve*/
+#include <stdio.h>
 #include <stdlib.h>
-#include <string.h> /* for strtok*/
+#include <unistd.h>
+#include <string.h>
+#include <sys/wait.h>
+#include <sys/types.h>
+#include <errno.h>
 #include <stddef.h>
+<<<<<<< HEAD
 #include <errno.h> /* for errno and perror */
 #include <sys/types.h> /* for type pid */
 #include <sys/wait.h> /* for wait */
@@ -18,37 +22,31 @@
 #include "macros.h" /* for msg help and prompt */
 
 /************* STRUCTURES **************/
+=======
+#include <sys/stat.h>
+#include <signal.h>
+extern char **environ;
+>>>>>>> fd269c9af8690fe090228718161c339f9131ff95
 
 /**
- * struct info- struct for the program's data
- * @program_name: the name of the executable
- * @input_line: pointer to the input read for _getline
- * @command_name: pointer to the first command typed by the user
- * @exec_counter: number of excecuted comands
- * @file_descriptor: file descriptor to the input of commands
- * @tokens: pointer to array of tokenized input
- * @env: copy of the environ
- * @alias_list: array of pointers with aliases.
+ * strcut list_path - path directories
+ *@dir: directory in path
+ *@p: pointer to the next node
  */
-typedef struct info
+typedef struct list_path
 {
-	char *program_name;
-	char *input_line;
-	char *command_name;
-	int exec_counter;
-	int file_descriptor;
-	char **tokens;
-	char **env;
-	char **alias_list;
-} data_of_program;
+	char *dir;
+	struct list_path *p;
+}list_path;
 
 /**
- * struct builtins - struct for the builtins
- * @builtin: the name of the builtin
- * @function: the associated function to be called for each builtin
+ *struct BuiltinCommand - pointer to function with corresponding builtin
+ *@name: builtin
+ *@func: execute the builtin
  */
-typedef struct builtins
+typedef struct BuiltinCommand
 {
+<<<<<<< HEAD
 	char *builtin;
 	int (*function)(data_of_program *data);
 } builtins;
@@ -247,3 +245,32 @@ int set_alias(char *alias_string, data_of_program *data);
 
 
 #endif /* SHELL_H */
+=======
+	char *name;
+	void (*func)(char **);
+}BuiltinCommand;
+int _putchar(char c);
+void _puts(char *str);
+int _strlen(char *str);
+char *duplicateString(char *str);
+char *concatenateStrings(char *str1, char *str2, char *str3);
+char **splitString(char *str, const char *delim);
+void executeCommand(char **argv);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+void freearv(char **arv);
+char *_getenv(const char *name);
+list_path *addNodeAtEnd(list_path **head, char *str);
+list_path *createPathList(char *path);
+char *findPathname(char *filenae, list_path *head);
+void freeList(list_path *head);
+void(*checkBuiltin(char **command))(char **arv);
+int _atoi(char *str);
+void exitShell(char **args);
+void printEnvironment(char **args);
+void setEnvironmentVariable(char **args);
+void unsetEnvironmentVariable(char **args);
+void signal_handler(int sig_num);
+void _EOF(int len, char *buff);
+void _isatty(void);
+#endif /*SHELL_H*/
+>>>>>>> fd269c9af8690fe090228718161c339f9131ff95
