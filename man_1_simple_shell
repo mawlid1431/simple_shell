@@ -182,4 +182,4 @@ Upon failure, prints a message to \fBstderr\fR.
 access(2), chdir(2), execve(2), _exit(2), exit(3), fflush(3), fork(2), free(3), isatty(3), getcwd(3), malloc(3), open(2), read(2), sh(1), signal(2), stat(2), wait(2), write(2)
 
 .B Shellby\fR emulates basic functionality of the \fBsh\fR shell.
-This man page borrows from the corresponding man pages sh(1) and dash(1).
+This man page borrows from the corresponding man pages sh(1) and dash(1)
