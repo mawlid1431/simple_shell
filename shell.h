@@ -2,16 +2,16 @@
 #define SHELL_H
 
 #include <stdio.h>
-#include <stlib.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <errno.h>
 #include <stddef.h>
-#include <sys/stst.h>
+#include <sys/stat.h>
 #include <signal.h>
-extern char **environ
+extern char **environ;
 
 /**
  * strcut list_path - path directories
@@ -48,11 +48,13 @@ list_path *addNodeAtEnd(list_path **head, char *str);
 list_path *createPathList(char *path);
 char *findPathname(char *filenae, list_path *head);
 void freeList(list_path *head);
-void(*checkbuild(char **command))(char **arv);
+void(*checkBuiltin(char **command))(char **arv);
 int _atoi(char *str);
 void exitShell(char **args);
 void printEnvironment(char **args);
 void setEnvironmentVariable(char **args);
 void unsetEnvironmentVariable(char **args);
-
+void signal_handler(int sig_num);
+void _EOF(int len, char *buff);
+void _isatty(void);
 #endif /*SHELL_H*/
