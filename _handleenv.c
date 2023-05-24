@@ -8,6 +8,7 @@ char *_getenv(const char *name)
 {
 	int i, j;
 	char *value;
+
 	if (!name)
 		return (NULL);
 	for (i = 0; environ[i]; i++)
@@ -40,6 +41,7 @@ list_path *addNodeAtEnd(list_path **head, char *str)
 {
 	list_path *tmp;
 	list_path *newNode;
+
 	newNode = malloc(sizeof(list_path));
 	if (!newNode || !str)
 	{
@@ -60,7 +62,7 @@ list_path *addNodeAtEnd(list_path **head, char *str)
 		}
 		tmp->p = newNode;
 	}
-	return *head;
+	return (*head);
 }
 /**
  *createPathList - creates a linked list for path directories
@@ -72,6 +74,7 @@ list_path *createPathList(char *path)
 	list_path *head = NULL;
 	char *token;
 	char *cpath = duplicateString(path);
+
 	token = strtok(cpath, ":");
 	while (token)
 	{
@@ -91,6 +94,7 @@ char *findPathname(char *filename, list_path *head)
 	struct stat st;
 	char *pathname;
 	list_path *tmp = head;
+
 	while (tmp)
 	{
 		pathname = concatenateStrings(tmp->dir, "/", filename);
@@ -111,6 +115,7 @@ void freeList(list_path *head)
 {
 	list_path *current = head;
 	list_path *next;
+
 	while (current)
 	{
 		next = current->p;

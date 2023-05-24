@@ -47,6 +47,7 @@ int main(void)
 	char *buff = NULL, *value, *pathname, **arv;
 	list_path *head;
 	void (*f)(char **);
+
 	len = size = 0;
 	head = '\0';
 	signal(SIGINT, signal_handler);
@@ -79,8 +80,6 @@ int main(void)
 			}
 		}
 	}
-	freeList(head);
-	freearv(arv);
-	free(buff);
+	freeList(head); freearv(arv); free(buff);
 	return (0);
 }

@@ -8,6 +8,7 @@ char *duplicateString(char *str)
 {
 	int index, length;
 	char *new_str;
+
 	if (!str)
 	{
 		return (NULL);
@@ -21,7 +22,7 @@ char *duplicateString(char *str)
 	{
 		return (NULL);
 	}
-	for (index = 0; index < length; index ++)
+	for (index = 0; index < length; index++)
 	{
 		new_str[index] = str[index];
 	}
@@ -36,6 +37,7 @@ char *duplicateString(char *str)
 int _strlen(char *str)
 {
 	int i = 0;
+
 	while (*(str + i) != '\0')
 	{
 		i++;
@@ -53,6 +55,7 @@ char *concatenateStrings(char *str1, char *str2, char *str3)
 {
 	char *result;
 	int len1, len2, len3, index, k;
+
 	len1 = _strlen(str1);
 	len2 = _strlen(str2);
 	len3 = _strlen(str3);
@@ -87,6 +90,7 @@ int _putchar(char c)
 void _puts(char *str)
 {
 	int i = 0;
+
 	while (str[i])
 	{
 		_putchar(str[i]);

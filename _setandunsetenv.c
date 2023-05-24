@@ -7,9 +7,10 @@
 int _atoi(char *str)
 {
 	int index, num, sign;
+
 	sign = 1;
 	index = num = 0;
-	while (!((str[index] >= '0')&& (str[index] <= '9')) && (str[index] != '\0'))
+	while (!((str[index] >= '0') && (str[index] <= '9')) && (str[index] != '\0'))
 	{
 		if (str[index] == '-')
 		{
@@ -31,6 +32,7 @@ int _atoi(char *str)
 void exitShell(char **args)
 {
 	int status, i;
+
 	if (args[1])
 	{
 		status = _atoi(args[1]);
@@ -51,6 +53,7 @@ void exitShell(char **args)
 void printEnvironment(char **args __attribute__ ((unused)))
 {
 	int i;
+
 	for (i = 0; environ[i]; i++)
 	{
 		_puts(environ[i]);
@@ -65,6 +68,7 @@ void printEnvironment(char **args __attribute__ ((unused)))
 void setEnvironmentVariable(char **args)
 {
 	int i, j, k;
+
 	if (!args[1] || !args[2])
 	{
 		perror(getenv(""));
@@ -72,7 +76,7 @@ void setEnvironmentVariable(char **args)
 	}
 	for (i = 0; environ[i]; i++)
 	{
-		j =0;
+		j = 0;
 		if (args[1][j] == environ[i][j])
 		{
 			while (args[1][j])
@@ -107,14 +111,15 @@ void setEnvironmentVariable(char **args)
 void unsetEnvironmentVariable(char **args)
 {
 	int i, j;
+
 	if (!args[1])
 	{
 		perror(getenv(""));
 		return;
 	}
-	for (i =0; environ[i]; i++)
+	for (i = 0; environ[i]; i++)
 	{
-		j =0;
+		j = 0;
 		if (args[1][j])
 		{
 			while (args[1][j])

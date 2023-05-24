@@ -16,7 +16,7 @@ void (*checkBuiltin(char **command))(char **arv)
 	};
 	for (i = 0; builtinCommands[i].name; i++)
 	{
-		j =0;
+		j = 0;
 		if (builtinCommands[i].name[j] == command[0][j])
 		{
 			for (j = 0; command[0][j]; j++)
