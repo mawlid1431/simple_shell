@@ -1,58 +1,110 @@
 #include "shell.h"
 /**
- * execute - execute a command with its entire path variables.
- * @data: Pointer to the program's data structure
- * Return: If sucess returns zero, otherwise, return -1.
+ *splitString - splits a string into an array of pointers to words
+ *@str: the string to be split
+ *@delim: delimeter
+ *Return: array of pointers to words
  */
-int execute(data_of_program *data)
+char **splitString(char *str, cont char *delim)
 {
-	int retval = 0, status;
-	pid_t pid, pidd;
-	char *path;
+	int i, wordCount;
+	char **array;
+	char *token;
+	char *copy;
 
-	path = find_executable(data->command_name);
-	if (!path)
+	copy = malloc(_strlen(str) + 1);
+	if (copy == NULL)
 	{
-		fprintf(stderr, "%s: command not found\n", data->command_name);
-		return -1;
+		perror(_getenv("_"));
+		return (NULL);
 	}
-	pid = fork();
-	if (pid == 0)
+	i = 0;
+	while (str[i])
 	{
-		if (execve(path, data->tokens, NULL) == -1)
-		{
-			perror("execute");
-			exit(EXIT_FAILURE);
-		}
-		exit(EXIT_SUCCESS);
+		copy[i] = str[i];
+		i++;
 	}
-	else if (pid < 0)
+	copy[i] = '\0';
+	token = strtok(copy, delim);
+	array = malloc((sizeof(char *) * 2));
+	array[0] = _strdup(token);
+	i = 1;
+	wordCount = 3;
+	while (token)
 	{
-		perror("execute");
+		token = strtok(NULL, delim);
+		array = realloc(array, (sizeof(char *) * wordCount));
+		array[i] = _strdup(token);
+		i++;
+		wordCount++;
+	}
+	free(copy);
+	return (array);
+}
+/**
+ *executeCommand - execute a command
+ *@argv: array of arguments
+ */
+void executeCommand(char **argv)
+{
+	int childPid, status;
+	if (!argv || !argv[0])
+		return;
+	childPid = fork();
+	if (childPid == -1)
+	{
+		perror(getenv(""));
+	}
+	if (childPid == 0)
+	{
+		execve(argv[0], argv, environ);
+		perror(argv[0]);
 		exit(EXIT_FAILURE);
 	}
-	else
-	{/* if program was found */
-		pidd = fork(); /* create a child process */
-		if (pidd == -1)
-		{ /* if the fork call failed */
-			perror(data->command_name);
-			exit(EXIT_FAILURE);
-		}
-		if (pidd == 0)
-		{/* I am the child process, I execute the program*/
-			retval = execve(data->tokens[0], data->tokens, data->env);
-			if (retval == -1) /* if error when execve*/
-				perror(data->command), exit(EXIT_FAILURE);
-		}
-		else
-		{/*I am the father,I wait and check the exit status of the child */
-			wait(&status);
-			if (WIFEXITED(status))
-				errno = WEXITSTATUS(status);
-			else if (WIFSIGNALED(status))
-				errno = 128 + WTERMSIG(status);
-		}
+	wait(&status);
+}
+/**
+*_realloc - Reallocates memory block
+*@ptr: previous pointer
+*@old_size: old size of previous pointer
+*@new_size: new size of our pointer
+*Return: New resized pointer
+*/
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
+{
+	char *new;
+	char *old;
+	unsigned int i;
+	if (ptr == NULL)
+		return malloc(new_size);
+	if (new_size == old_size)
+		return ptr;
+	if (new_size == 0 && ptr != NULL)
+	{
+		free(ptr);
+		return NULL;
 	}
-	return (0);
+
+	new = malloc(new_size);
+	old = ptr;
+	if (new == NULL)
+		return NULL;
+	if (new_size < old_size)
+	{
+		for (i = 0; i < new_size; i++)
+			new[i] = old[i];
+		free(ptr);
+	}
+	return new;
+}
+/**
+ *freearv - frees the array of pointers arv
+ *@arv: array of pointers
+ */
+void freearv(char **arv)
+{
+	int i;
+	for (i = 0; arv[i]; i++)
+		free(arv[i]);
+	free(arv);
 }
