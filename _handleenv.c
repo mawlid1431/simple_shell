@@ -10,7 +10,7 @@ char *_getenv(const char *name)
 	char *value;
 	if (!name)
 		return (NULL);
-	for (i = 0, environ[i]; i++)
+	for (i = 0; environ[i]; i++)
 	{
 		j = 0;
 		if (name[j] == environ[i][j])
@@ -36,7 +36,7 @@ char *_getenv(const char *name)
  *@str: pointer to string for the new node
  *Return: address of the new element/node
  */
-list_path *addNodeAtndd(list_path **head, char *str)
+list_path *addNodeAtEnd(list_path **head, char *str)
 {
 	list_path *tmp;
 	list_path *newNode;
@@ -71,7 +71,7 @@ list_path *createPathList(char *path)
 {
 	list_path *head = NULL;
 	char *token;
-	char *cpath = _strdup(path);
+	char *cpath = duplicateString(path);
 	token = strtok(cpath, ":");
 	while (token)
 	{

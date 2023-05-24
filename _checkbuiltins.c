@@ -4,9 +4,9 @@
  *@command: name of the command
  *Return: pointer tot he corresponding builtin function or null if not found
  */
-void (*checkBuiltin(char *command))(char **arv)
+void (*checkBuiltin(char **command))(char **arv)
 {
-	int i;
+	int i, j;
 	BuiltinCommand builtinCommands[] = {
 		{"exit", exitShell},
 		{"env", printEnvironment},
@@ -14,10 +14,19 @@ void (*checkBuiltin(char *command))(char **arv)
 		{"unsetenv", unsetEnvironmentVariable},
 		{NULL, NULL}
 	};
-	for (i = 0; builtinCommands[i].name, i++)
+	for (i = 0; builtinCommands[i].name; i++)
 	{
-		if (strcmp(command, builtinCommands[i].name) == 0)
-			return buitlinCommands[i].func;
+		j =0;
+		if (builtinCommands[i].name[j] == command[0][j])
+		{
+			for (j = 0; command[0][j]; j++)
+			{
+				if (builtinCommands[i].name[j] != command[0][j])
+					break;
+			}
+			if (!command[0][j])
+				return (builtinCommands[i].func);
+		}
 	}
 	return (NULL);
 }

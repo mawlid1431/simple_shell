@@ -30,23 +30,25 @@ int _atoi(char *str)
  */
 void exitShell(char **args)
 {
-	int status = 0;
+	int status, i;
 	if (args[1])
 	{
 		status = _atoi(args[1]);
 		if (status <= -1)
 			status = 2;
-		freeArguments(args);
+		freearv(args);
 		exit(status);
 	}
-	freeArguments(args);
+	for (i = 0; args[i]; i++)
+		free(args[i]);
+	free(args);
 	exit(0);
 }
 /**
  *printEnvironment - prints the current environment
  *@args: array of arguments
  */
-void printEnvironment(char **args attribute((unused)))
+void printEnvironment(char **args __attribute__ ((unused)))
 {
 	int i;
 	for (i = 0; environ[i]; i++)

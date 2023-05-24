@@ -5,7 +5,7 @@
  *@delim: delimeter
  *Return: array of pointers to words
  */
-char **splitString(char *str, cont char *delim)
+char **splitString(char *str, const char *delim)
 {
 	int i, wordCount;
 	char **array;
@@ -27,14 +27,14 @@ char **splitString(char *str, cont char *delim)
 	copy[i] = '\0';
 	token = strtok(copy, delim);
 	array = malloc((sizeof(char *) * 2));
-	array[0] = _strdup(token);
+	array[0] = duplicateString(token);
 	i = 1;
 	wordCount = 3;
 	while (token)
 	{
 		token = strtok(NULL, delim);
 		array = realloc(array, (sizeof(char *) * wordCount));
-		array[i] = _strdup(token);
+		array[i] = duplicateString(token);
 		i++;
 		wordCount++;
 	}

@@ -10,9 +10,9 @@ char *duplicateString(char *str)
 	char *new_str;
 	if (!str)
 	{
-		return (NULL)
+		return (NULL);
 	}
-	for (length = 0; str[length] != '\0')
+	for (length = 0; str[length] != '\0';)
 	{
 		length++;
 	}
@@ -21,7 +21,7 @@ char *duplicateString(char *str)
 	{
 		return (NULL);
 	}
-	for (index = 0; index < lenght; index ++)
+	for (index = 0; index < length; index ++)
 	{
 		new_str[index] = str[index];
 	}
@@ -36,7 +36,7 @@ char *duplicateString(char *str)
 int _strlen(char *str)
 {
 	int i = 0;
-	while (*(s + i) != '\0')
+	while (*(str + i) != '\0')
 	{
 		i++;
 	}
